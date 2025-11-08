@@ -1,0 +1,20 @@
+    • Маршруты:
+        1. GET /games- Получить все игры.
+        2. POST /games- Добавить новую игру.
+        3. GET /games/{id}- Получить игру по ID.
+        4. GET /genres- Получить все жанры.
+        5. POST /genres- Создать новый жанр.
+        6. POST /games/:gameId/genres/:genreId- Назначить жанр игре.
+        7. GET /games/{id}/genres- Получить все жанры игры.
+        8. GET /genres/{id}/games- Получить все игры жанра.
+
+        1. GET http://127.0.0.1:5111/game
+        2. POST http://127.0.0.1:5111/game
+        3. GET http://127.0.0.1:5111/game/2
+        4. GET http://127.0.0.1:5111/genre
+        5. POST http://127.0.0.1:5111/genre
+        6. POST http://127.0.0.1:5111/game/4/genres/2
+        7. GET http://127.0.0.1:5111/game/4/genres
+        8. GET http://127.0.0.1:5111/genre/4/games
+
+        https://memngr40-9345455.postman.co/workspace/as's-Workspace~ee598665-376c-4873-8779-0f04cae8975f/collection/49453999-f6a833f3-7336-4c37-bb9d-73f676c0a154?action=share&source=copy-link&creator=49453999
