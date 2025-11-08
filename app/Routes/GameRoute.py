@@ -26,7 +26,11 @@ def get_games():
             'releaseYear': game.releaseYear,
             'genres': genres_list  # Добавляем жанры
         })
-    return jsonify({'success': True, 'games': games_list}), 200
+    return (jsonify
+        ({
+        'success': True,
+        'games': games_list
+    }), 200)
 
 
 
