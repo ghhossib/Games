@@ -23,25 +23,13 @@ class GameController:
         return Game.get_by_id(id)
 
     @classmethod
-    def update(cls, id, **fields):
-        Game.update(**fields).where(Game.id == id).execute()
-
-    @classmethod
-    def delete(cls, id):
-        Game.delete_by_id(id)
-
-    @classmethod
     def add_genre_to_game(cls, game_id, genre_id):
 
         GameGenre.create(game=game_id, genre=genre_id, created_at=datetime.now())
 
     @classmethod
     def get_game_genres(cls, game_id):
-
-        return (Genre
-                .select()
-                .join(GameGenre)
-                .where(GameGenre.game == game_id))
+        return (Genre.select().join(GameGenre).where(GameGenre.game == game_id))
 
     @classmethod
     def remove_genre_from_game(cls, game_id, genre_id):
