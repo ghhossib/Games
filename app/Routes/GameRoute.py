@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from app.Controllers.GameController import GameController
+import peewee
 
 game_bp = Blueprint('game', __name__, url_prefix='/game')
 
@@ -36,16 +37,25 @@ def get_games():
 
 @game_bp.route('/', methods=['POST'])
 def add_game():
-    data_game = request.get_json()
-    title = data_game['title']
-    developer = data_game['developer']
-    releaseYear = data_game['releaseYear']
-    GameController.add(title=title, developer=developer, releaseYear=releaseYear)
-    return (jsonify
-            ({
-            'success': True,
-            'message': 'Игра добавлена'
-            }),200)
+    try:
+        data_game = request.get_json()
+        title = data_game['title']
+        developer = data_game['developer']
+        releaseYear = data_game['releaseYear']
+        GameController.add(title=title, developer=developer, releaseYear=releaseYear)
+        return (jsonify
+                ({
+                'success': True,
+                'message': 'Игра добавлена'
+                }),200)
+    except peewee.IntegrityError as error:
+        return jsonify(
+            {
+                'success': False,
+                'message': 'Игра не добавлена',
+                'error': str(error)
+            }
+        ),400
 
 
 
@@ -66,11 +76,20 @@ def get_game(id):
 
 @game_bp.route('/<int:game_id>/genres/<int:genre_id>', methods=['POST'])
 def assign_genre_to_game(game_id, genre_id):
-    GameController.add_genre_to_game(game_id, genre_id)
-    return jsonify({
-        'success': True,
-        'message': 'Жанр назначен игре'
-    }), 200
+    try:
+        GameController.add_genre_to_game(game_id, genre_id)
+        return jsonify({
+            'success': True,
+            'message': 'Жанр назначен игре'
+        }), 200
+    except peewee.IntegrityError as error:
+        return jsonify(
+            {
+                'success': False,
+                'message': ':Жанр не назначен',
+                'error': str(error)
+            }
+        ),400
 
 
 

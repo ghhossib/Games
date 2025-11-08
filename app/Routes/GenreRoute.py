@@ -1,3 +1,4 @@
+import peewee
 from flask import Blueprint, jsonify, request
 from app.Controllers.GenreController import GenreController
 
@@ -23,13 +24,22 @@ def get_genres():
 
 @genre_bp.route('/', methods=['POST'])
 def add_genre():
-    data_genre = request.get_json()
-    name = data_genre['name']
-    GenreController.add(name=name)
-    return jsonify({
-        'success': True,
-        'message': 'Жанр добавлен',
-    }), 200
+    try:
+        data_genre = request.get_json()
+        name = data_genre['name']
+        GenreController.add(name=name)
+        return jsonify({
+            'success': True,
+            'message': 'Жанр добавлен',
+        }), 200
+    except peewee.IntegrityError as error:
+        return jsonify(
+            {
+                'success': False,
+                'message': 'жанр не добавлен',
+                'error': str(error)
+            }
+        ),400
 
 
 
