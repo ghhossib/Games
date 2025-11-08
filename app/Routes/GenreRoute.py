@@ -32,7 +32,7 @@ def add_genre():
     }), 200
 
 
-# 8. GET /genres/{id}/games - Получить все игры жанра
+
 @genre_bp.route('/<int:genre_id>/games', methods=['GET'])
 def get_genre_games(genre_id):
     games = GenreController.get_games_by_genre(genre_id)

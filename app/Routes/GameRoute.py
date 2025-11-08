@@ -37,7 +37,11 @@ def add_game():
     developer = data_game['developer']
     releaseYear = data_game['releaseYear']
     GameController.add(title=title, developer=developer, releaseYear=releaseYear)
-    return jsonify({'success': True, 'message': 'Игра добавлена'}), 200
+    return (jsonify
+            ({
+            'success': True,
+            'message': 'Игра добавлена'
+            }),200)
 
 
 
